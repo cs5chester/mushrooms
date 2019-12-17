@@ -9,3 +9,11 @@ export const addMarker =  function (store, payload) {
 	
 	store.setState(newStore);
 }
+
+export const updateMarkers =  function (store, payload) {
+	const newStore = Object.assign({}, store);
+	
+	newStore.state.markers = payload.markers;
+	console.log(newStore);
+	store.setState(newStore);
+}

@@ -1,7 +1,8 @@
-import React, {useRef, useState} from 'react';
+import React from 'react';
 import {Map, GoogleApiWrapper, Marker} from 'google-maps-react';
 import {Controls} from './GoogleMapsControls';
 import useGlobal from "./store";
+import {mushrooms} from "./store/static";
 
 export function MapContainer(props) {
     // function getLocation() {
@@ -16,10 +17,10 @@ export function MapContainer(props) {
     //     var lng = position.coords.longitude;
     //     map.setCenter(new google.maps.LatLng(lat, lng));
     // }
-    const latInput = useRef(null);
-    const lngInput = useRef(null);
+    // const latInput = useRef(null);
+    // const lngInput = useRef(null);
    
-    const [globalState, addMarker] = useGlobal();
+    const [globalState] = useGlobal();
     
     const mapProps = {
         google: props.google,
@@ -35,7 +36,7 @@ export function MapContainer(props) {
         },
         mapType: 'satellite'
     }
-    
+    console.log(globalState.markers);
     return (
         <div className={'map-holder'}>
             <div className={'map-wrapper'} style={{width: '70%', height: '100vh', position: 'relative'}}>
@@ -43,15 +44,17 @@ export function MapContainer(props) {
                     <Map {...mapProps}>
                         {
                             globalState.markers.map(function (item, index) {
+                                const mushroom = item.typeId && mushrooms[item.typeId];
+                                
                                 return  (
                                     <Marker
-                                        title="Location"
+                                        title= {mushroom && mushroom.name}
                                         id={index}
                                         key={index}
                                         draggable={true}
                                         position={item.position}
                                         icon={{
-                                            url: item.icon && item.icon.url,
+                                            url: mushroom && mushroom.icon,
                                             anchor: new window.google.maps.Point(32,32),
                                             scaledSize: new window.google.maps.Size(32,32)
                                         }}

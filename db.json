@@ -5,14 +5,14 @@
         "lat": 49.853191,
         "lng": 36.283477
       },
-      "typeId": "white-mushroom"
+      "id": "white-mushroom"
     },
     {
       "position": {
         "lat": 49.853191,
         "lng": 36.283487
       },
-      "typeId": "podosinovik"
+      "id": "podosinovik"
     }
   ]
 }
