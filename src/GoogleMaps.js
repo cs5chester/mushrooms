@@ -1,47 +1,69 @@
-import React, {Component, useContext, useEffect} from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import React, {useRef, useState} from 'react';
+import {Map, GoogleApiWrapper, Marker} from 'google-maps-react';
+import {Controls} from './GoogleMapsControls';
+import useGlobal from "./store";
 
-export class MapContainer extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            selectedPlace: {
-                name: 'some name'
-            }
-        }
+export function MapContainer(props) {
+    // function getLocation() {
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(showPosition);
+    //     } else {
+    //         alert("Geolocation is not supported by this browser.");
+    //     }
+    // }
+    // function showPosition(position) {
+    //     var lat = position.coords.latitude;
+    //     var lng = position.coords.longitude;
+    //     map.setCenter(new google.maps.LatLng(lat, lng));
+    // }
+    
+    const latInput = useRef(null);
+    const lngInput = useRef(null);
+   
+    const [globalState, addMarker] = useGlobal();
+    
+    const mapProps = {
+        google: props.google,
+        zoom: 50,
+        style: {
+            width: '100%',
+            height: '100%',
+            position: 'relative',
+        },
+        initialCenter: {
+            lat: 49.853191,
+            lng: 36.283477
+        },
+        mapType: 'satellite'
     }
-
-    onInfoWindowClose (){
-
-    }
-
-    onMarkerClick (){
-
-    }
-
-    render() {
-        return (
-            <Map
-                google={this.props.google}
-                zoom={50}
-                initialCenter={{
-                    lat: 49.853191,
-                    lng: 36.283477
-                }}
-            >
-
-                <Marker onClick={this.onMarkerClick}
-                        name={'Current location'} />
-
-                <InfoWindow onClose={this.onInfoWindowClose}>
-                    <div>
-                        <h1>{this.state.selectedPlace.name}</h1>
-                    </div>
-                </InfoWindow>
-            </Map>
-        );
-    }
+    
+    console.log(globalState);
+    return (
+        <div className={'map-holder'}>
+            <div className={'map-wrapper'} style={{width: '70%', height: '100vh', position: 'relative'}}>
+                <div className={'map'} style={{width: '100%', height: '100%', position: 'absolute'}}>
+                    <Map {...mapProps}>
+                        {/*<Markers markers = {markers}/>*/}
+                        {
+                            globalState.markers.map(function (item, index) {
+                                return  (
+                                    <Marker
+                                        title="Location"
+                                        id={index}
+                                        key={index}
+                                        draggable={true}
+                                        position={item.position}
+                                    />
+                                    
+                                )
+                            })
+                        }
+                    </Map>
+                </div>
+            </div>
+           <Controls/>
+        </div>
+    );
 }
 
 export default GoogleApiWrapper({
