@@ -16,7 +16,6 @@ export function MapContainer(props) {
     //     var lng = position.coords.longitude;
     //     map.setCenter(new google.maps.LatLng(lat, lng));
     // }
-    
     const latInput = useRef(null);
     const lngInput = useRef(null);
    
@@ -37,13 +36,11 @@ export function MapContainer(props) {
         mapType: 'satellite'
     }
     
-    console.log(globalState);
     return (
         <div className={'map-holder'}>
             <div className={'map-wrapper'} style={{width: '70%', height: '100vh', position: 'relative'}}>
                 <div className={'map'} style={{width: '100%', height: '100%', position: 'absolute'}}>
                     <Map {...mapProps}>
-                        {/*<Markers markers = {markers}/>*/}
                         {
                             globalState.markers.map(function (item, index) {
                                 return  (
@@ -53,6 +50,11 @@ export function MapContainer(props) {
                                         key={index}
                                         draggable={true}
                                         position={item.position}
+                                        icon={{
+                                            url: item.icon && item.icon.url,
+                                            anchor: new window.google.maps.Point(32,32),
+                                            scaledSize: new window.google.maps.Size(32,32)
+                                        }}
                                     />
                                     
                                 )
