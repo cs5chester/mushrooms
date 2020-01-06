@@ -7,3 +7,38 @@
 .controls-wrapper{
     width: 30%  ;
 }
+
+.marker{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background: aliceblue;
+    border-radius: 50%;
+    border:2px solid  #bdcacb;
+
+}
+
+.marker img{
+    width: 30px;
+    height: 30px;
+}
+
+.counter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    width: 20px;
+    height: 20px;
+    background: aliceblue;
+    border-radius: 50%;
+    border:2px solid  #bdcacb;
+    color: #50534f;
+    font-size: 14px;
+    font-weight: 600;
+}

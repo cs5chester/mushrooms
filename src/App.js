@@ -1,13 +1,12 @@
 import React from 'react';
 import './App.css';
-import GoogleMaps from "./GoogleMaps";
+import GoogleMap from "./components/GoogleMap";
 
 function App() {
   return (
     <div className="App">
         <div className={'content'}>
-          <GoogleMaps />
-          
+          <GoogleMap />
         </div>
     </div>
   );
